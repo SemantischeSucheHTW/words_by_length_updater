@@ -1,8 +1,7 @@
 import os
 
-from extractor.HTMLExtractor import HTMLExtractor
-#from kafka_interface.kafkasink import KafkaSink
-from kafka_interface.kafkasource import KafkaSource
+from updater.kafkasource import KafkaSource
+from updater.updater import Updater
 from dao.mongodbdao import MongoDBDao
 
 
@@ -14,10 +13,10 @@ def env(key):
 
 debug = env("DEBUG")
 
-wordListSource = KafkaSource({
-    "topic": env("KAFKA_PARSEORDERS_TOPIC"),
+kafkaSource = KafkaSource({
+    "topic": env("KAFKA_NEW_WORDLIST_TOPIC"),
     "bootstrap_servers": env("KAFKA_BOOTSTRAP_SERVERS"),
-    "group_id": env("KAFKA_PARSEORDERS_GROUP_ID"),
+    "group_id": env("KAFKA_NEW_WORDLIST_GROUP_ID"),
     "auto_offset_reset": "earliest"
 })
 
@@ -43,4 +42,4 @@ while True:
     updated = updater.put(wordlist)
     
     if debug:
-        print(f"Updated word len matrix with {updated}")
+        print(f"Updated word len matrix")  #with {updated}

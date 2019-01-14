@@ -8,7 +8,7 @@ class KafkaSource:
     def __init__(self, config):
 
         config["key_deserializer"] = lambda k: k.decode("utf-8")
-        config["value_deserializer"] = lambda k: k.decode("utf-8") #TODO
+        config["value_deserializer"] = lambda k: json.loads(k)
         topic = config.pop("topic")
 
         self.consumer = KafkaConsumer(topic, **config)

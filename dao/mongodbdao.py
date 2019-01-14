@@ -24,15 +24,7 @@ class MongoDBDao():
                 new_value.extend(old_value["words"])
             #print(f"new list will be {new_value}")
             self.words_by_length_collection.update_one({"len":key}, {"$set": {"words":new_value}}, upsert=True)
-        
-    def getListsForLengths(self, lengths_list):
-        lists=[]
-        for length in lengths_list:
-            wordlist = self.words_by_length_collection.find_one({"len":length})
-            if (wordlist):
-                lists.append(wordlist["words"])
-        return lists
-                
+    
     def get_all(self):
         d = {}
         for l in self.words_by_length_collection.find({}):
