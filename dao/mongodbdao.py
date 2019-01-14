@@ -23,7 +23,8 @@ class MongoDBDao():
             if (old_value):
                 new_value.extend(old_value["words"])
             #print(f"new list will be {new_value}")
-            self.words_by_length_collection.update_one({"len":key}, {"$set": {"words":new_value}}, upsert=True)
+            #write new value and remove duplicates by converting it to set and then list
+            self.words_by_length_collection.update_one({"len":key}, {"$set": {"words":list(set(new_value))}}, upsert=True)
     
     def get_all(self):
         d = {}
