@@ -20,7 +20,6 @@ kafkaSource = KafkaSource({
     "auto_offset_reset": "earliest"
 })
 
-#DONE
 dao = MongoDBDao({
     "host": env("MONGODB_HOST"),
     "db": env("MONGODB_DB"),
@@ -37,7 +36,7 @@ while True:
     wordlist = kafkaSource.getWordList()
 
     if debug:
-        print(f"Got wordlist {wordlist}")
+        print(f"Got wordlist with {len(wordlist)} words")
         
     updated = updater.put(wordlist)
     

@@ -8,7 +8,7 @@ class Updater:
     def __init__(self, dao):
         self.dao = dao
 
-    #takes a list of words, creates a dict: len(word)->List(words) and writes that in the db
+    #takes a list of words, creates a dict: len(word)->List(words) and writes that into the db
     def put(self, new_words):
         word_len_dict = {}
         for word in new_words:
